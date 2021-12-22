@@ -1,3 +1,22 @@
+const waitFor=(selector)=>{
+    return new Promise((resolve,reject)=>{
+    const interval=setInterval(()=>{
+    if(document.querySelector(selector)){
+        clearInterval(interval)
+        clearTimeout(timeout)
+        resolve();
+    }
+    },30);
+
+    const timeout=setTimeout(()=>{  //only one time in declaring time
+     clearInterval(interval)
+        reject();
+    },2000)
+    })
+
+}
+
+
 beforeEach(()=>{      //hook provided by mocha globally
     document.querySelector('#target').innerHTML='';
     createAutoComplete({
@@ -24,10 +43,14 @@ it('Dropdown starts close',()=>{
 
 });
 
-it('After searching dropdown opens up',()=>{
+it('After searching dropdown opens up',async()=>{
   const input = document.querySelector('input');
   input.value='avengers';
   input.dispatchEvent(new Event ('input'))
+
+  //delaying expectation
+ await waitFor('.dropdown-item')
+
 
   const dropdown=document.querySelector('.dropdown');
    
