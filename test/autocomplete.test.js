@@ -11,5 +11,12 @@ it('It shows an autocomplete',()=>{
        renderOption(movie){
            return movie.Title;
        }
-   })
+   });
+
+   //dropdown
+   const dropdown=document.querySelector('.dropdown');
+   
+   expect(dropdown.className).not.to.include('is-active')  //chai-assert or expect for not having is-active class here
+   
+
 });
